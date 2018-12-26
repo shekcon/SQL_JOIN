@@ -1,7 +1,8 @@
 SELECT matches.id as match_id, countries.name as country_name
-FROM countries
-    LEFT JOIN audiences ON audiences.country_id = countries.id
-    JOIN matches ON matches.id = audiences.match_id
-WHERE audiences.country_id is NULL
+FROM matches 
+    CROSS JOIN countries
+    LEFT JOIN audiences
+    ON (MATCHES.ID = audiences.match_id and audiences.country_id = countries.id)
+WHERE audiences.match_id IS NULL 
+    AND audiences.country_id IS NULL
 ORDER BY matches.id, countries.name
-;
