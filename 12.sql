@@ -1,6 +1,6 @@
-SELECT sum(events.time) / count(*) FROM events
-JOIN matches ON events.match_id = matches.id
-JOIN teams ON matches.home_team_id = teams.id
-    OR matches.away_team_id = teams.id
+SELECT avg(events.time) as avg
+FROM events
+    INNER JOIN persons ON events.person_id = persons.id
+    INNER JOIN teams ON persons.team_id = teams.id
 WHERE events.kind = 'substitution-in'
     AND teams.name = 'Brazil';
